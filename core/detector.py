@@ -13,7 +13,7 @@ class DocumentDetector:
 
         contours, _ = cv2.findContours(
             edges,
-            cv2.RETR_LIST,
+            cv2.RETR_EXTERNAL,
             cv2.CHAIN_APPROX_SIMPLE
             
         )
@@ -31,12 +31,14 @@ class DocumentDetector:
 
 
     def find_document_contour(self, contours):
-        "Busca el primer contorno con cuatro vértices (Si detectan los cuatro vertices con mas area de la imagen encontramos la hoja)."
 
         sorted_contours = self.sort_contours_by_area(contours)
 
-        for contour in sorted_contours:
+        for i, contour in enumerate(sorted_contours):
 
+            area = cv2.contourArea(contour)
+            if area < 5000:
+                continue
             perimeter = cv2.arcLength(contour, True)
 
             approximation = cv2.approxPolyDP(
@@ -45,7 +47,38 @@ class DocumentDetector:
                 True
             )
 
+            
             if len(approximation) == 4:
+                print("Documento encontrado")
                 return approximation
 
+
+            # Dibujar este contorno para inspeccionarlo
+            preview = self.draw_contour(
+                cv2.imread("images/input/documento.jpg"),
+                approximation
+            )
+
+            cv2.imwrite(
+                f"images/output/debug_contour_{i+1}.jpg",
+                preview
+            )
+
         return None
+    
+    def draw_contour(self, image, contour):
+        """
+        Dibuja el contorno detectado sobre una copia de la imagen.
+        """
+
+        image_copy = image.copy()
+
+        cv2.drawContours(
+            image_copy,
+            [contour],
+            -1,
+            (0, 255, 0),
+            3
+        )
+
+        return image_copy

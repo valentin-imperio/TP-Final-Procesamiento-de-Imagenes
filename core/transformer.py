@@ -52,3 +52,30 @@ class PerspectiveTransformer:
             [width - 1, height - 1],
             [0, height - 1]
         ], dtype="float32")
+    
+    def warp(self, image, document_contour):
+        "Corrige la perspectiva del documento."
+
+        # Ordenar las esquinas
+        ordered_points = self.order_points(document_contour)
+
+        # Calcular dimensiones
+        width, height = self.calculate_dimensions(ordered_points)
+
+        # Generar rectángulo de destino
+        destination = self.destination_points(width, height)
+
+        # Calcular matriz de transformación
+        matrix = cv2.getPerspectiveTransform(
+            ordered_points,
+            destination
+        )
+
+        # Aplicar transformación
+        warped = cv2.warpPerspective(
+            image,
+            matrix,
+            (width, height)
+        )
+
+        return warped
