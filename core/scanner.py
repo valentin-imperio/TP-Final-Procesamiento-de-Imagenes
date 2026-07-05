@@ -21,6 +21,10 @@ class DocumentScanner:
 
         edges = self.detector.detect_edges(blur_image)
 
+        contours = self.detector.find_contours(edges)
+
+        print(f"Contornos encontrados: {len(contours)}")
+
         self.saver.save(
             edges,
             output_path
