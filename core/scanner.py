@@ -25,6 +25,13 @@ class DocumentScanner:
 
         print(f"Contornos encontrados: {len(contours)}")
 
+        document = self.detector.find_document_contour(contours)
+
+        if document is None:
+            raise ValueError("No se encontró ningún documento en la imagen.")
+
+        print("Documento detectado correctamente.")
+      
         self.saver.save(
             edges,
             output_path
