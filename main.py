@@ -7,7 +7,7 @@ def main():
 
     scanner.scan(
         input_path="images/input/documento.jpg",
-        output_path="images/output/blur.jpg"
+        output_path="images/output/edges.jpg"
     )
 
     print("Imagen procesada correctamente")
