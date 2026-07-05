@@ -1,24 +1,16 @@
-from core.loader import ImageLoader
-from core.enhancer import ImageEnhancer
-from core.saver import ImageSaver
+from core.scanner import DocumentScanner
 
 
 def main():
 
-    loader = ImageLoader()
-    enhancer = ImageEnhancer()
-    saver = ImageSaver()
+    scanner = DocumentScanner()
 
-    image = loader.load("images/input/documento.jpg")
-
-    gray_image = enhancer.to_grayscale(image)
-
-    saver.save(
-        gray_image,
-        "images/output/grayscale.jpg"
+    scanner.scan(
+        input_path="images/input/documento.jpg",
+        output_path="images/output/blur.jpg"
     )
 
-    print("Imagen guardada correctamente")
+    print("Imagen procesada correctamente")
 
 
 if __name__ == "__main__":
