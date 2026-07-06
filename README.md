@@ -7,6 +7,14 @@ Profesor: Juan Ignacio Bonini·
 
 **Valentín Imperio**
 
+
+
+**Github: https://github.com/valentin-imperio/TP-Final-Procesamiento-de-Imagenes**
+
+
+
+**Drive: https://drive.google.com/drive/u/0/folders/1kAQST4X-sRxZNqutl4TGEMsMCHr6NZRv**
+
 \---
 
 ## Problema
@@ -23,17 +31,17 @@ La solución se separó en **componentes de una sola responsabilidad** (carga, m
 
 ## Técnicas utilizadas
 
-| Técnica                                        | Propósito                                                                                                                                   |
-| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| Redimensionado                                 | Acelerar la detección de bordes trabajando sobre una copia más chica (se guarda el `ratio` para escalar el resultado a la imagen original). |
-| Escala de grises                               | Simplificar la imagen a un solo canal antes de detectar bordes.                                                                             |
-| Desenfoque gaussiano                           | Reducir ruido de alta frecuencia que generaría bordes falsos.                                                                               |
-| Detección de bordes de Canny                   | Encontrar los contornos del documento frente al fondo.                                                                                      |
-| Cierre morfológico                             | Unir cortes pequeños en el borde detectado para que forme un contorno cerrado.                                                              |
-| Búsqueda y aproximación poligonal de contornos | Quedarse con el contorno más grande que se aproxime a un polígono de 4 vértices (la hoja).                                                  |
-| Transformación de perspectiva                  | Enderezar el documento como si se hubiera escaneado de frente.                                                                              |
-| CLAHE                                          | Mejorar el contraste local sin quemar zonas claras ni oscuras.                                                                              |
-| Filtro de nitidez                              | Realzar el texto/detalle del documento final.                                                                                               |
+|Técnica|Propósito|
+|-|-|
+|Redimensionado|Acelerar la detección de bordes trabajando sobre una copia más chica (se guarda el `ratio` para escalar el resultado a la imagen original).|
+|Escala de grises|Simplificar la imagen a un solo canal antes de detectar bordes.|
+|Desenfoque gaussiano|Reducir ruido de alta frecuencia que generaría bordes falsos.|
+|Detección de bordes de Canny|Encontrar los contornos del documento frente al fondo.|
+|Cierre morfológico|Unir cortes pequeños en el borde detectado para que forme un contorno cerrado.|
+|Búsqueda y aproximación poligonal de contornos|Quedarse con el contorno más grande que se aproxime a un polígono de 4 vértices (la hoja).|
+|Transformación de perspectiva|Enderezar el documento como si se hubiera escaneado de frente.|
+|CLAHE|Mejorar el contraste local sin quemar zonas claras ni oscuras.|
+|Filtro de nitidez|Realzar el texto/detalle del documento final.|
 
 ## Flujo
 
@@ -112,15 +120,16 @@ TP-Final-Procesamiento-de-Imagenes/
    python main.py
 ````
 
-3. El programa recorre `images/input/`, procesa cada imagen con `DocumentScanner` y guarda el resultado en `images/output/` con el prefijo `scanned\_`.
+3. El programa recorre `images/input/`, procesa cada imagen con `DocumentScanner` y guarda el resultado en `images/output/` con el prefijo `scanned\\\_`.
 4. La consola informa el estado de cada imagen (`Documento detectado correctamente`, o el error si no se pudo detectar un documento).
 
-##
+## 
 
-##
+## 
 
 ## Limitaciones
 
-- El detector busca contornos con **exactamente 4 vértices** y área mínima (`> 5000 px`); si el documento está muy arrugado, doblado, o el fondo tiene un color/textura muy similar al papel, Canny puede no aislar un contorno limpio y el programa lanza `ValueError` ("No se encontró ningún documento en la imagen").
-- Funciona mejor con **buena iluminación uniforme** y **contraste marcado entre el documento y el fondo**; sombras fuertes sobre uno de los bordes pueden romper la detección.
-- No corrige documentos con **bordes curvos** (por ejemplo, una hoja no del todo plana), ya que la transformación de perspectiva asume 4 esquinas rectas.
+* El detector busca contornos con **exactamente 4 vértices** y área mínima (`> 5000 px`); si el documento está muy arrugado, doblado, o el fondo tiene un color/textura muy similar al papel, Canny puede no aislar un contorno limpio y el programa lanza `ValueError` ("No se encontró ningún documento en la imagen").
+* Funciona mejor con **buena iluminación uniforme** y **contraste marcado entre el documento y el fondo**; sombras fuertes sobre uno de los bordes pueden romper la detección.
+* No corrige documentos con **bordes curvos** (por ejemplo, una hoja no del todo plana), ya que la transformación de perspectiva asume 4 esquinas rectas.
+
