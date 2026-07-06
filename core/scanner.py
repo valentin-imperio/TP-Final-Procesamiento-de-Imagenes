@@ -28,23 +28,24 @@ class DocumentScanner:
 
         edges = self.detector.detect_edges(blur_image)
 
-        edges = self.enhancer.close_edges(edges)
+        closed_edges = self.enhancer.close_edges(edges)
 
-        contours = self.detector.find_contours(edges)
+        contours = self.detector.find_contours(closed_edges)
 
         document_contour = self.detector.find_document_contour(contours)
 
         if document_contour is None:
             raise ValueError("No se encontró ningún documento en la imagen.")
 
-        print("Documento detectado correctamente.")
+        print("Documento detectado correctamente (ദ്ദി˙ᗜ˙) ")
 
-        # ===== Escalar el contorno nuevamente al tamaño original =====
+        # Escala el contorno al tamaño de la imagen original
+
         document_contour = document_contour.reshape(4, 2)
         document_contour = document_contour * ratio
         document_contour = document_contour.astype(np.float32)
 
-        # Warp utilizando la imagen ORIGINAL
+        # Se Corrige la perspectiva del documento
         warped_image = self.transformer.warp(
             image,
             document_contour

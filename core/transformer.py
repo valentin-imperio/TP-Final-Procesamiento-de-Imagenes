@@ -5,7 +5,7 @@ import numpy as np
 
 class PerspectiveTransformer:
 
-    "Se ordenan los cuatro puntos del documento"
+    #Se ordenan las cuatro puntas del documento
     def order_points(self, points):
 
         points = points.reshape(4, 2)
@@ -24,11 +24,9 @@ class PerspectiveTransformer:
 
         return ordered
 
-    "Calcula el ancho y el alto del documento."
+    #Calcula el ancho y el alto del documento
     def calculate_dimensions(self, points):
-
      
-
         (top_left, top_right, bottom_right, bottom_left) = points
 
         width_top = np.linalg.norm(top_right - top_left)
@@ -45,7 +43,7 @@ class PerspectiveTransformer:
 
 
     def destination_points(self, width, height):
-        "Devuelve los puntos de destino para la transformación de perspectiva."
+        #Devuelve los puntos de destino para la transformación de perspectiva
         return np.array([
             [0, 0],
             [width - 1, 0],
@@ -56,22 +54,20 @@ class PerspectiveTransformer:
     def warp(self, image, document_contour):
         "Corrige la perspectiva del documento."
 
-        # Ordenar las esquinas
+       
         ordered_points = self.order_points(document_contour)
 
-        # Calcular dimensiones
+        
         width, height = self.calculate_dimensions(ordered_points)
 
-        # Generar rectángulo de destino
+      
         destination = self.destination_points(width, height)
 
-        # Calcular matriz de transformación
         matrix = cv2.getPerspectiveTransform(
             ordered_points,
             destination
         )
 
-        # Aplicar transformación
         warped = cv2.warpPerspective(
             image,
             matrix,

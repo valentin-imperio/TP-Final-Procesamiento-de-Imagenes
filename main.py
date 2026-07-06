@@ -13,20 +13,24 @@ def main():
 
     extensions = [".jpg", ".jpeg", ".png", ".bmp"]
 
-    for image_path in input_folder.iterdir():
+    images = [
+        image
+        for image in input_folder.iterdir()
+        if image.suffix.lower() in extensions
+    ]
 
-        if image_path.suffix.lower() not in extensions:
-            continue
+    if not images:
+        print("No se encontraron imágenes para procesar.")
+        return
+
+    for image_path in images:
 
         output_path = output_folder / f"scanned_{image_path.name}"
 
         print(f"Procesando: {image_path.name}")
 
         try:
-            scanner.scan(
-                str(image_path),
-                str(output_path)
-            )
+            scanner.scan(str(image_path), str(output_path))
 
             print("OK\n")
 
