@@ -54,18 +54,3 @@ class DocumentDetector:
 
         return None
     
-    def draw_contour(self, image, contour):
-       
-        #Dibuja el contorno del documento sobre la imagen
-
-        image_copy = image.copy()
-
-        cv2.drawContours(
-            image_copy,
-            [contour],
-            -1,
-            (0, 255, 0),
-            3
-        )
-
-        return image_copy
