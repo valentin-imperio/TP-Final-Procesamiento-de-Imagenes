@@ -12,17 +12,6 @@ class ImageEnhancer:
         # Reduce el ruido de la imagen.
         return cv2.GaussianBlur(image, (5, 5), 0)
 
-    def adaptive_threshold(self, image):
-        # Convierte la imagen a blanco y negro utilizando un umbral adaptativo
-        return cv2.adaptiveThreshold(
-            image,
-            255,
-            cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-            cv2.THRESH_BINARY,
-            11,
-            2
-        )
-
     def close_edges(self, image):
         # Une  cortes pequeños para que detecte mejor la hojas
 
